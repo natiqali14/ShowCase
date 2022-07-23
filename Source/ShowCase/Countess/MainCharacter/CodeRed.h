@@ -19,6 +19,13 @@ private:
 	/** Camera for the Main Character */
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = SpringArm,meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* Camera;
+
+private:
+	/** Movement */
+	void StraightMovement(float Value);
+	void SideMovement(float Value);
+
+	
 public:
 	// Sets default values for this character's properties
 	ACodeRed();

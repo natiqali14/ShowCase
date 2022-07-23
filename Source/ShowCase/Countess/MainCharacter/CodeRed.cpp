@@ -3,6 +3,7 @@
 
 #include "CodeRed.h"
 
+
 // Sets default values
 ACodeRed::ACodeRed()
 {
@@ -36,6 +37,33 @@ void ACodeRed::Tick(float DeltaTime)
 void ACodeRed::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
+	PlayerInputComponent->BindAction("Jump",IE_Pressed,this,&ACharacter::Jump);
+	PlayerInputComponent->BindAxis("StraightMovement",this,&ACodeRed::StraightMovement);
+	PlayerInputComponent->BindAxis("SideMovement",this,&ACodeRed::SideMovement);
 
 }
+/**
+ * Movement for Main Character
+ */
+void ACodeRed::StraightMovement(float Value)
+{
+	if(GetController())
+	{
+		const FRotator PlayerRotation = GetController()->GetControlRotation();
+		const FRotator OnlyYawRotation = FRotator{0.f, PlayerRotation.Yaw, 0.f};
+		const FVector DirectionX = FRotationMatrix{OnlyYawRotation}.GetUnitAxis(EAxis::X);
+		AddMovementInput(DirectionX,Value);
+	}
+}
 
+void ACodeRed::SideMovement(float Value)
+{
+	if(GetController())
+	{
+		const FRotator PlayerRotation = GetController()->GetControlRotation();
+		const FRotator OnlyYawRotation = FRotator{0.f, PlayerRotation.Yaw, 0.f};
+		const FVector DirectionY = FRotationMatrix{OnlyYawRotation}.GetUnitAxis(EAxis::Y);
+		AddMovementInput(DirectionY,Value);
+	}
+	
+}
