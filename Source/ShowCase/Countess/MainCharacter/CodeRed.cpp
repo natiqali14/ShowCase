@@ -24,6 +24,17 @@ ACodeRed::ACodeRed()
 
 }
 
+void ACodeRed::PlayTurnInPlaceMontage(FName SectionName)
+{
+	
+	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
+	if(AnimInstance && TurnInPlaceMontage)
+	{
+		AnimInstance->Montage_Play(TurnInPlaceMontage);
+		AnimInstance->Montage_JumpToSection(SectionName,TurnInPlaceMontage);
+	}
+}
+
 // Called when the game starts or when spawned
 void ACodeRed::BeginPlay()
 {

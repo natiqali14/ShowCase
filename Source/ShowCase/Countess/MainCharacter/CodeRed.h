@@ -30,6 +30,9 @@ private:
 	float YAxisSens;
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = SpringArm,meta = (AllowPrivateAccess = "true"))
 	ECharacterMode CharacterMode;
+	/** Turn in Place Montage */
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = Montages ,meta = (AllowPrivateAccess = "true") )
+	UAnimMontage* TurnInPlaceMontage;
 private:
 	/** Movement */
 	void StraightMovement(float Value);
@@ -41,6 +44,7 @@ private:
 public:
 	// Sets default values for this character's properties
 	ACodeRed();
+	void PlayTurnInPlaceMontage(FName SectionName);
 
 protected:
 	// Called when the game starts or when spawned

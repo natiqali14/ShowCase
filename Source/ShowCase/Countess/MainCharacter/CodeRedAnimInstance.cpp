@@ -13,6 +13,7 @@ UCodeRedAnimInstance::UCodeRedAnimInstance()
 	bInTravelMode = true;
 	MovementYaw = 0.f;
 	IsAccelerating = false;
+	TurnInPlaceYawValue = 0.f;
 }
 
 void UCodeRedAnimInstance::NativeInitializeAnimation()
@@ -84,39 +85,10 @@ void UCodeRedAnimInstance::UpdateProperties(float DeltaTime)
 			FRotator r =  UKismetMathLibrary::NormalizedDeltaRotator(CodeRedRef->GetBaseAimRotation(),CodeRedRef->GetActorRotation());
 			CodeRedYaw = r.Yaw;
 			CodeRedPitch = r.Pitch;
-		}
-		UE_LOG(LogTemp,Warning,TEXT("%f"),CodeRedYaw);
+			
 		
-	}
+			
+		}
 	
-}
-
-void UCodeRedAnimInstance::TurnInPlace()
-{
-	if(CodeRedRef->GetVelocity().Size() > 0)
-	{
-		
-	}
-	else
-	{
-		
-		float Cur = GetCurveValue(FName("TurnInPlace"));
-		if(Cur > 0)
-		{
-			float CurveValue;
-			bool bCurve =GetCurveValue(FName("DistanceCurve"),CurveValue);
-			if(bCurve)
-			{
-				float UpdatedValue = CurveValue + 180;
-				if(CodeRedRef->GetBaseAimRotation().Yaw> 0)
-				{
-					TurnInPlaceYawValue = UpdatedValue;
-				}
-				else
-				{
-					TurnInPlaceYawValue = UpdatedValue * -1;
-				}
-			}
-		}
 	}
 }
