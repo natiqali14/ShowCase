@@ -31,10 +31,13 @@ private:
 	float CodeRedPitch;
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = AnimationProperties , meta = (AllowPrivateAccess = "true"))
 	float CodeRedYaw;
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = AnimationProperties , meta = (AllowPrivateAccess = "true"))
+	float TurnInPlaceYawValue;
 public:
 	UCodeRedAnimInstance();
 	virtual void NativeInitializeAnimation() override;
 	UFUNCTION(BlueprintCallable)
 	void UpdateProperties(float DeltaTime);
+	void TurnInPlace();
 	
 };
