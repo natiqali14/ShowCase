@@ -21,6 +21,7 @@ ACodeRed::ACodeRed()
 
 	// Charater Mode
 	CharacterMode = ECharacterMode::ECM_Travel;
+	
 
 }
 

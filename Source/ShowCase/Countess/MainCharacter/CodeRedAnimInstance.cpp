@@ -89,6 +89,7 @@ void UCodeRedAnimInstance::UpdateProperties(float DeltaTime)
 		
 			
 		}
+		
 	
 	}
 }
