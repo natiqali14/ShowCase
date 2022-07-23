@@ -16,6 +16,11 @@ ACodeRed::ACodeRed()
 	// Camera
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	Camera->SetupAttachment(SpringArmComponent,USpringArmComponent::SocketName);
+	XAxisSens = 2.f;
+	YAxisSens = 2.f;
+
+	// Charater Mode
+	CharacterMode = ECharacterMode::ECM_Travel;
 
 }
 
@@ -40,6 +45,8 @@ void ACodeRed::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	PlayerInputComponent->BindAction("Jump",IE_Pressed,this,&ACharacter::Jump);
 	PlayerInputComponent->BindAxis("StraightMovement",this,&ACodeRed::StraightMovement);
 	PlayerInputComponent->BindAxis("SideMovement",this,&ACodeRed::SideMovement);
+	PlayerInputComponent->BindAxis("LookAt",this, &ACodeRed::LookAt);
+	PlayerInputComponent->BindAxis("Turn",this, &ACodeRed::Turn);
 
 }
 /**
@@ -66,4 +73,14 @@ void ACodeRed::SideMovement(float Value)
 		AddMovementInput(DirectionY,Value);
 	}
 	
+}
+
+void ACodeRed::LookAt(float Value)
+{
+	AddControllerPitchInput(Value * YAxisSens);
+}
+
+void ACodeRed::Turn(float Value)
+{
+	AddControllerYawInput(Value * XAxisSens);
 }

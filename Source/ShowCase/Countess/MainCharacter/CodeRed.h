@@ -7,7 +7,12 @@
 #include "GameFramework/Character.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "CodeRed.generated.h"
-
+UENUM()
+enum class ECharacterMode: uint8
+{
+	ECM_Travel,
+	ECM_WithSwords
+};
 UCLASS()
 class SHOWCASE_API ACodeRed : public ACharacter
 {
@@ -19,11 +24,18 @@ private:
 	/** Camera for the Main Character */
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = SpringArm,meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* Camera;
-
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = SpringArm,meta = (AllowPrivateAccess = "true"))
+	float XAxisSens;
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = SpringArm,meta = (AllowPrivateAccess = "true"))
+	float YAxisSens;
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = SpringArm,meta = (AllowPrivateAccess = "true"))
+	ECharacterMode CharacterMode;
 private:
 	/** Movement */
 	void StraightMovement(float Value);
 	void SideMovement(float Value);
+	void LookAt(float Value);
+	void Turn(float Value);
 
 	
 public:
@@ -43,5 +55,6 @@ public:
 public:
 	FORCEINLINE USpringArmComponent* GetSpringArm(){ return SpringArmComponent;}
 	FORCEINLINE UCameraComponent* GetCamera(){ return Camera;}
+	FORCEINLINE ECharacterMode GetCharacterMode(){ return CharacterMode;}
 	
 };
