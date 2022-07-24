@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "Camera/CameraComponent.h"
+#include "Components/HealthComponent.h"
+#include "Components/ManaComponent.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "CodeRed.generated.h"
@@ -33,6 +35,14 @@ private:
 	/** Turn in Place Montage */
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = Montages ,meta = (AllowPrivateAccess = "true") )
 	UAnimMontage* TurnInPlaceMontage;
+	// Health Components
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = SpringArm,meta = (AllowPrivateAccess = "true"))
+	UHealthComponent* HealthComponent;
+
+	// Mana Component
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = SpringArm,meta = (AllowPrivateAccess = "true"))
+	UManaComponent* ManaComponent;
+
 private:
 	/** Movement */
 	void StraightMovement(float Value);
@@ -60,5 +70,7 @@ public:
 	FORCEINLINE USpringArmComponent* GetSpringArm(){ return SpringArmComponent;}
 	FORCEINLINE UCameraComponent* GetCamera(){ return Camera;}
 	FORCEINLINE ECharacterMode GetCharacterMode(){ return CharacterMode;}
-	
+	//testing
+	FORCEINLINE void DHealth(){ HealthComponent->DecreaseHealth();}
+	FORCEINLINE void DMana(){ ManaComponent->UseMana();}
 };

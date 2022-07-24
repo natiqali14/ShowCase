@@ -21,6 +21,10 @@ ACodeRed::ACodeRed()
 
 	// Charater Mode
 	CharacterMode = ECharacterMode::ECM_Travel;
+
+	// Health
+	HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("Health Component"));
+	ManaComponent = CreateDefaultSubobject<UManaComponent>(TEXT("Mana Componet"));
 	
 
 }
@@ -59,6 +63,10 @@ void ACodeRed::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	PlayerInputComponent->BindAxis("SideMovement",this,&ACodeRed::SideMovement);
 	PlayerInputComponent->BindAxis("LookAt",this, &ACodeRed::LookAt);
 	PlayerInputComponent->BindAxis("Turn",this, &ACodeRed::Turn);
+
+	// testingonly
+	PlayerInputComponent->BindAction("Health",IE_Pressed,this, &ACodeRed::DHealth);
+	PlayerInputComponent->BindAction("Mana",IE_Pressed,this, &ACodeRed::DMana);
 
 }
 /**
