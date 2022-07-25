@@ -45,6 +45,12 @@ struct FBWhiteMagicInfo : public FTableRowBase
 	
 };
 
+UENUM(BlueprintType)
+enum class EWhiteMagicState: uint8
+{
+	EWS_Ready,
+	EWS_Recharging,
+};
 /**
  * 
  */
@@ -62,6 +68,8 @@ public:
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = Data, meta = (AllowPrivateAccess = "true"))
 	float TimeToFull;
 	FTimerHandle MagicReadyHandle;
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = Data, meta = (AllowPrivateAccess = "true"))
+	EWhiteMagicState MagicState;
 	
 
 public:

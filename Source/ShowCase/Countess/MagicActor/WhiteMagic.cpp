@@ -7,6 +7,7 @@ AWhiteMagic::AWhiteMagic()
 {
 	bReady = false;
 	TimeToFull = WaitTime;
+	MagicState = EWhiteMagicState::EWS_Recharging;
 }
 
 void AWhiteMagic::BeginPlay()
@@ -14,6 +15,7 @@ void AWhiteMagic::BeginPlay()
 	Super::BeginPlay();
 	InitiateProperties();
 	TimeToFull = WaitTime;
+	MagicState = EWhiteMagicState::EWS_Recharging;
 }
 
 void AWhiteMagic::Tick(float DeltaSeconds)
@@ -127,6 +129,7 @@ void AWhiteMagic::MagicPrepareTime(float DeltaTime)
 	if(TimeToFull <= 0.01)
 	{
 		bReady = true;
+		MagicState = EWhiteMagicState::EWS_Ready;
 	}
 	if(!bReady)
 	{
@@ -137,6 +140,11 @@ void AWhiteMagic::MagicPrepareTime(float DeltaTime)
 
 void AWhiteMagic::UseMagic()
 {
-	TimeToFull = WaitTime;
-	bReady = false;
+	if(bReady)
+	{
+		TimeToFull = WaitTime;
+		bReady = false;
+		MagicState = EWhiteMagicState::EWS_Recharging;
+	}
+	
 }

@@ -17,15 +17,15 @@ class SHOWCASE_API AMagic : public ASkill
 public:
 	
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = Data, meta = (AllowPrivateAccess = "true"))
-	float Damage;
+	float Damage = 0;
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = Data, meta = (AllowPrivateAccess = "true"))
 	TSubclassOf<UDamageType> DamageType;
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = Data, meta = (AllowPrivateAccess = "true"))
-	int32 ManaCost;
+	int32 ManaCost = 0;
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = Data, meta = (AllowPrivateAccess = "true"))
-	bool bCanDamage;
+	bool bCanDamage = false;
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = Data, meta = (AllowPrivateAccess = "true"))
-	USlateBrushAsset* MagicImage;
+	USlateBrushAsset* MagicImage= nullptr;
 public:
 	AMagic();
 	virtual void BeginPlay() override;

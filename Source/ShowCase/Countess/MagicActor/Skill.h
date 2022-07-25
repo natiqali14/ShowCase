@@ -14,17 +14,17 @@ class SHOWCASE_API ASkill : public AActor
 public:
 	
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = Data, meta = (AllowPrivateAccess = "true"))
-	FName Title;
+	FName Title= "";
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = Data, meta = (AllowPrivateAccess = "true"))
-	FName Description;
+	FName Description = "";
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = Data, meta = (AllowPrivateAccess = "true"))
-	USlateBrushAsset* InputButton;
+	USlateBrushAsset* InputButton = nullptr;
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = Data, meta = (AllowPrivateAccess = "true"))
-	USlateBrushAsset* SkillIcon;
+	USlateBrushAsset* SkillIcon= nullptr;
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = Data, meta = (AllowPrivateAccess = "true"))
-	USlateBrushAsset* SkillImage;
+	USlateBrushAsset* SkillImage= nullptr;
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = Data, meta = (AllowPrivateAccess = "true"))
-	USlateBrushAsset* SkillBorderColor;
+	USlateBrushAsset* SkillBorderColor= nullptr;
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = Data, meta = (AllowPrivateAccess = "true"))
 	FLinearColor SkillFontColor;
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = Data, meta = (AllowPrivateAccess = "true"))
