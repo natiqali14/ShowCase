@@ -3,12 +3,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Magic.h"
-#include "Binding/ColorBinding.h"
+#include "Skill.h"
 #include "Engine/DataTable.h"
-#include "WhiteMagic.generated.h"
+#include "MovementSkill.generated.h"
+
 USTRUCT(BlueprintType)
-struct FBWhiteMagicInfo : public FTableRowBase
+struct FMovementInfo : public FTableRowBase
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = Data, meta = (AllowPrivateAccess = "true"))
@@ -27,19 +27,9 @@ struct FBWhiteMagicInfo : public FTableRowBase
 	FLinearColor SkillFontColor;
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = Data, meta = (AllowPrivateAccess = "true"))
 	bool bMagicSkill;
-	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = Data, meta = (AllowPrivateAccess = "true"))
-	float Damage;
-	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = Data, meta = (AllowPrivateAccess = "true"))
-	TSubclassOf<UDamageType> DamageType;
+	
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = Data, meta = (AllowPrivateAccess = "true"))
 	int32 ManaCost;
-	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = Data, meta = (AllowPrivateAccess = "true"))
-	bool bCanDamage;
-	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = Data, meta = (AllowPrivateAccess = "true"))
-	USlateBrushAsset* MagicImage;
-	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = Data, meta = (AllowPrivateAccess = "true"))
-	float WaitTime;
-	
 	
 	
 	
@@ -49,29 +39,16 @@ struct FBWhiteMagicInfo : public FTableRowBase
  * 
  */
 UCLASS()
-class SHOWCASE_API AWhiteMagic : public AMagic
+class SHOWCASE_API AMovementSkill : public ASkill
 {
 	GENERATED_BODY()
 public:
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = Data, meta = (AllowPrivateAccess = "true"))
-	EWhiteMagic WhiteMagicType;
-	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = Data, meta = (AllowPrivateAccess = "true"))
-	float WaitTime;
-	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = Data, meta = (AllowPrivateAccess = "true"))
-	bool bReady;
-	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = Data, meta = (AllowPrivateAccess = "true"))
-	float TimeToFull;
-	FTimerHandle MagicReadyHandle;
-	
+	int32 ManaCost;
 
 public:
-	AWhiteMagic();
+	AMovementSkill();
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaSeconds) override;
-	void InitiateProperties();
-	void MagicPrepareTime(float DeltaTime);
-	void SetTimeToFull();
-	void UseMagic();
 	
 };
-

@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Slate/SlateBrushAsset.h"
 #include "Skill.generated.h"
 
 UCLASS()
@@ -17,15 +18,15 @@ public:
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = Data, meta = (AllowPrivateAccess = "true"))
 	FName Description;
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = Data, meta = (AllowPrivateAccess = "true"))
-	UTexture2D* InputButton;
+	USlateBrushAsset* InputButton;
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = Data, meta = (AllowPrivateAccess = "true"))
-	UTexture2D* SkillIcon;
+	USlateBrushAsset* SkillIcon;
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = Data, meta = (AllowPrivateAccess = "true"))
-	UTexture2D* SkillImage;
+	USlateBrushAsset* SkillImage;
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = Data, meta = (AllowPrivateAccess = "true"))
-	UTexture2D* SkillBorderColor;
+	USlateBrushAsset* SkillBorderColor;
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = Data, meta = (AllowPrivateAccess = "true"))
-	UTexture2D* SkillFontColor;
+	FLinearColor SkillFontColor;
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = Data, meta = (AllowPrivateAccess = "true"))
 	bool bMagicSkill;
 	

@@ -24,6 +24,8 @@ public:
 	int32 ManaCost;
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = Data, meta = (AllowPrivateAccess = "true"))
 	bool bCanDamage;
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = Data, meta = (AllowPrivateAccess = "true"))
+	USlateBrushAsset* MagicImage;
 public:
 	AMagic();
 	virtual void BeginPlay() override;

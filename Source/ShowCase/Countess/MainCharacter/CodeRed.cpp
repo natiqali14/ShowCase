@@ -3,6 +3,9 @@
 
 #include "CodeRed.h"
 
+#include "GameplayTask.h"
+#include "Kismet/GameplayStatics.h"
+
 
 // Sets default values
 ACodeRed::ACodeRed()
@@ -44,6 +47,8 @@ void ACodeRed::PlayTurnInPlaceMontage(FName SectionName)
 void ACodeRed::BeginPlay()
 {
 	Super::BeginPlay();
+	EquipBlackMagic();
+	EquipWhiteMagic();
 	
 }
 
@@ -59,6 +64,8 @@ void ACodeRed::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 	PlayerInputComponent->BindAction("Jump",IE_Pressed,this,&ACharacter::Jump);
+	
+	
 	PlayerInputComponent->BindAxis("StraightMovement",this,&ACodeRed::StraightMovement);
 	PlayerInputComponent->BindAxis("SideMovement",this,&ACodeRed::SideMovement);
 	PlayerInputComponent->BindAxis("LookAt",this, &ACodeRed::LookAt);
@@ -67,8 +74,27 @@ void ACodeRed::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	// testingonly
 	PlayerInputComponent->BindAction("Health",IE_Pressed,this, &ACodeRed::DHealth);
 	PlayerInputComponent->BindAction("Mana",IE_Pressed,this, &ACodeRed::DMana);
+	PlayerInputComponent->BindAction("Q",IE_Pressed,this,&ACodeRed::UseWhiteMagic);
 
 }
+
+void ACodeRed::EquipBlackMagic()
+{
+	ABlackMagic* BlackMagic = Cast<ABlackMagic>(GetWorld()->SpawnActor(BlackMagictoEquipped));
+	EquippedBlackMagic = BlackMagic;
+}
+
+void ACodeRed::EquipWhiteMagic()
+{
+	AWhiteMagic* WhiteMagic = Cast<AWhiteMagic>(GetWorld()->SpawnActor(WhiteMagicToEquipped));
+	EquippedWhiteMagic = WhiteMagic;
+}
+
+void ACodeRed::UseWhiteMagic()
+{
+	EquippedWhiteMagic->UseMagic();
+}
+
 /**
  * Movement for Main Character
  */

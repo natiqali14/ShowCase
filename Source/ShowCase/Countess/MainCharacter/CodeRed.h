@@ -8,6 +8,8 @@
 #include "Components/ManaComponent.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "ShowCase/Countess/MagicActor/BlackMagic.h"
+#include "ShowCase/Countess/MagicActor/WhiteMagic.h"
 #include "CodeRed.generated.h"
 UENUM()
 enum class ECharacterMode: uint8
@@ -43,6 +45,18 @@ private:
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = SpringArm,meta = (AllowPrivateAccess = "true"))
 	UManaComponent* ManaComponent;
 
+	// WhiteMagic Slot
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = WhiteMagic,meta = (AllowPrivateAccess = "true"))
+	TSubclassOf<AWhiteMagic> WhiteMagicToEquipped;
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = WhiteMagic,meta = (AllowPrivateAccess = "true"))
+	AWhiteMagic* EquippedWhiteMagic;
+
+	// Black MAgic
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = BlackMagic,meta = (AllowPrivateAccess = "true"))
+	TSubclassOf<ABlackMagic> BlackMagictoEquipped;
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = BlackMagic,meta = (AllowPrivateAccess = "true"))
+	ABlackMagic* EquippedBlackMagic;
+
 private:
 	/** Movement */
 	void StraightMovement(float Value);
@@ -66,11 +80,17 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	void EquipBlackMagic();
+	void EquipWhiteMagic();
+	
 public:
 	FORCEINLINE USpringArmComponent* GetSpringArm(){ return SpringArmComponent;}
 	FORCEINLINE UCameraComponent* GetCamera(){ return Camera;}
 	FORCEINLINE ECharacterMode GetCharacterMode(){ return CharacterMode;}
+	FORCEINLINE ABlackMagic* GetEquippedBlackMagic() {return EquippedBlackMagic;}
+	FORCEINLINE AWhiteMagic* GetEquippedWhiteMagic() {return EquippedWhiteMagic;}
 	//testing
 	FORCEINLINE void DHealth(){ HealthComponent->DecreaseHealth();}
 	FORCEINLINE void DMana(){ ManaComponent->UseMana();}
+	void UseWhiteMagic();
 };
