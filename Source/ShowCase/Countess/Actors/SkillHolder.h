@@ -24,12 +24,9 @@ class SHOWCASE_API ASkillHolder : public AActor
 public:
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = Skill)
 	ESkillType SkillType;
+	
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = Skill)
-	TSubclassOf<AWhiteMagic> WhiteMagic;
-	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = Skill)
-	TSubclassOf<ABlackMagic> BlackMagic;
-	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = Skill)
-	TSubclassOf<AMovementSkill> MovementSkill;
+	TSubclassOf<ASkill> Skill;
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = StylizedMesh)
 	UStaticMeshComponent* Mesh1;
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = StylizedMesh)
@@ -65,4 +62,9 @@ public:
 	
 	UFUNCTION(BlueprintCallable)
 	void UpdateMesh2ZValue(float ZVal);
+
+	ASkill* SpawnSkill();
+	//void LearnSkill();
 };
+
+

@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Skill.h"
 #include "Engine/DataTable.h"
+#include "ShowCase/Countess/Enums/BlackMagicTypes.h"
 #include "MovementSkill.generated.h"
 
 USTRUCT(BlueprintType)
@@ -43,12 +44,13 @@ class SHOWCASE_API AMovementSkill : public ASkill
 {
 	GENERATED_BODY()
 public:
+	
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = Data, meta = (AllowPrivateAccess = "true"))
-	int32 ManaCost;
+	EMovementSkill MovementSkill;
 
 public:
 	AMovementSkill();
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaSeconds) override;
-	
+	void InitiateProperties();
 };

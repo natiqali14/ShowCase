@@ -20,12 +20,10 @@ public:
 	float Damage = 0;
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = Data, meta = (AllowPrivateAccess = "true"))
 	TSubclassOf<UDamageType> DamageType;
-	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = Data, meta = (AllowPrivateAccess = "true"))
-	int32 ManaCost = 0;
+	
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = Data, meta = (AllowPrivateAccess = "true"))
 	bool bCanDamage = false;
-	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = Data, meta = (AllowPrivateAccess = "true"))
-	USlateBrushAsset* MagicImage= nullptr;
+	
 public:
 	AMagic();
 	virtual void BeginPlay() override;

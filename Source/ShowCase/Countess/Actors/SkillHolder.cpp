@@ -4,6 +4,7 @@
 #include "SkillHolder.h"
 
 #include "Particles/ParticleSystemComponent.h"
+#include "ShowCase/Countess/MainCharacter/CodeRed.h"
 
 // Sets default values
 ASkillHolder::ASkillHolder()
@@ -40,14 +41,34 @@ void ASkillHolder::Tick(float DeltaTime)
 void ASkillHolder::EntryTriggerBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	StartAnimation();
+	if(OtherActor)
+	{
+		ACodeRed* Ref = Cast<ACodeRed>(OtherActor);
+		if(Ref)
+		{
+			StartAnimation();// Book Animation ;
+			Ref->SetSkillHolder(this);
+			Ref->bInsideSkillHolder = true;
+		}
+	}
+	
 }
 
 void ASkillHolder::EntryTriggerEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
-	StopAnimation();
-	Mesh2->SetWorldLocation(Mesh2Location);
+	if(OtherActor)
+	{
+		ACodeRed* Ref = Cast<ACodeRed>(OtherActor);
+		if(Ref)
+		{
+			StopAnimation(); // Book Anim;
+			Mesh2->SetWorldLocation(Mesh2Location);
+			Ref->SetSkillHolder(nullptr);
+			Ref->bInsideSkillHolder = false;
+		}
+	}
+
 }
 
 
@@ -59,4 +80,15 @@ void ASkillHolder::UpdateMesh2ZValue(float ZVal)
 	
 	
 }
+
+ASkill* ASkillHolder::SpawnSkill()
+{
+	if(Skill)
+	{
+		
+		return Cast<ASkill>(GetWorld()->SpawnActor(Skill));
+	}
+	return nullptr;
+}
+
 

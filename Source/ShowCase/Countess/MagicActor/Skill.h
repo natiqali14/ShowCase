@@ -29,6 +29,10 @@ public:
 	FLinearColor SkillFontColor;
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = Data, meta = (AllowPrivateAccess = "true"))
 	bool bMagicSkill;
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = Data, meta = (AllowPrivateAccess = "true"))
+	USlateBrushAsset* MagicImage= nullptr;
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = Data, meta = (AllowPrivateAccess = "true"))
+	int32 ManaCost = 0;
 	
 public:	
 	// Sets default values for this actor's properties

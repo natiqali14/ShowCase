@@ -21,3 +21,9 @@ enum class EWhiteMagic : uint8
 	EWM_TimeSlow UMETA("TimeSlow"),
 	EWM_Default UMETA("Default")
 };
+UENUM(BlueprintType)
+enum class EMovementSkill : uint8
+{
+	EMS_BackDash,
+	EMS_DoubleJump
+};

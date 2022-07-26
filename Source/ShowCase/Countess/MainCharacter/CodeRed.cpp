@@ -4,7 +4,10 @@
 #include "CodeRed.h"
 
 #include "GameplayTask.h"
+#include "GameFramework/HUD.h"
 #include "Kismet/GameplayStatics.h"
+#include "ShowCase/ShowCaseGameModeBase.h"
+#include "ShowCase/Countess/Actors/SkillHolder.h"
 
 
 // Sets default values
@@ -28,7 +31,9 @@ ACodeRed::ACodeRed()
 	// Health
 	HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("Health Component"));
 	ManaComponent = CreateDefaultSubobject<UManaComponent>(TEXT("Mana Componet"));
-	
+	// Skill Learning
+	bSkillLearnedButtonPress = false;
+	bInsideSkillHolder = false;
 
 }
 
@@ -50,6 +55,10 @@ void ACodeRed::BeginPlay()
 	EquipBlackMagic();
 	EquipWhiteMagic();
 	
+	CodeRedPlayerController =Cast<ACodeRedPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(),0));
+	
+	
+	
 }
 
 // Called every frame
@@ -64,7 +73,9 @@ void ACodeRed::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 	PlayerInputComponent->BindAction("Jump",IE_Pressed,this,&ACharacter::Jump);
-	
+	PlayerInputComponent->BindAction("LearnSkill",IE_Pressed,this,&ACodeRed::LearnSkillButtonPressed);
+	PlayerInputComponent->BindAction("LearnSkill",IE_Released,this,&ACodeRed::LearnSkillButtonReleased);
+	PlayerInputComponent->BindAction("Cancel",IE_Released,this,&ACodeRed::CanelUIButtonPressed);
 	
 	PlayerInputComponent->BindAxis("StraightMovement",this,&ACodeRed::StraightMovement);
 	PlayerInputComponent->BindAxis("SideMovement",this,&ACodeRed::SideMovement);
@@ -89,6 +100,9 @@ void ACodeRed::EquipWhiteMagic()
 	AWhiteMagic* WhiteMagic = Cast<AWhiteMagic>(GetWorld()->SpawnActor(WhiteMagicToEquipped));
 	EquippedWhiteMagic = WhiteMagic;
 }
+
+
+
 
 void ACodeRed::UseWhiteMagic()
 {
@@ -129,4 +143,66 @@ void ACodeRed::LookAt(float Value)
 void ACodeRed::Turn(float Value)
 {
 	AddControllerYawInput(Value * XAxisSens);
+}
+/**
+ * Learn Skill
+*/
+void ACodeRed::LearnSkillButtonPressed()
+{
+	bSkillLearnedButtonPress = true;
+	if(bInsideSkillHolder && SkillHolder)
+	{
+		LearnSkill();
+	}
+	
+}
+
+void ACodeRed::LearnSkillButtonReleased()
+{
+	bSkillLearnedButtonPress = false;
+}
+
+void ACodeRed::CanelUIButtonPressed()
+{
+	CancelUIDelegate.Broadcast(true);
+}
+
+void ACodeRed::LearnSkill()
+{
+	
+	if(SkillHolder)
+	{
+		ASkill* Skill = SkillHolder->SpawnSkill();
+		LastLearnedSkill = Skill;
+		
+		if(SkillHolder->SkillType == ESkillType::EST_BlackMagic)
+		{
+			LastLearnedSkillType = ESkillType::EST_BlackMagic;
+			ABlackMagic* Bm = Cast<ABlackMagic>(Skill);
+			BlackMagicInventory.Add(Bm);
+		}
+		else if (SkillHolder->SkillType == ESkillType::EST_WhiteMagic)
+		{
+			LastLearnedSkillType = ESkillType::EST_WhiteMagic;
+			AWhiteMagic* Wm = Cast<AWhiteMagic>(Skill);
+			WhiteMagicInventory.Add(Wm);
+		}
+		else if(SkillHolder->SkillType == ESkillType::EST_MovementSKill)
+		{
+			LastLearnedSkillType = ESkillType::EST_MovementSKill;
+			AMovementSkill* Ms = Cast<AMovementSkill>(Skill);
+			MovementSkillInventory.Add(Ms);
+		}
+		
+		if(LastLearnedSkill)
+		{
+			SkillLearned.Broadcast(true);
+			
+		}
+	}
+}
+
+void ACodeRed::SetSkillHolder(ASkillHolder* Holder)
+{
+	SkillHolder = Holder;
 }
